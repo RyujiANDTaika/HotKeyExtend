@@ -25,6 +25,7 @@ namespace HotkeyExtend.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool switchStatus {
             get {
                 return ((bool)(this["switchStatus"]));
@@ -36,9 +37,9 @@ namespace HotkeyExtend.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public int[,] screenBlockStatus {
+        public global::System.Collections.ArrayList screenBlockStatus {
             get {
-                return ((int[,])(this["screenBlockStatus"]));
+                return ((global::System.Collections.ArrayList)(this["screenBlockStatus"]));
             }
             set {
                 this["screenBlockStatus"] = value;

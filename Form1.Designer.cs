@@ -61,9 +61,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.HotkeyExtendIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.显示窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.启用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.show_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.switch_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exit_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.ScreenBorder.SuspendLayout();
@@ -83,7 +83,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(766, 402);
+            this.tabControl1.Size = new System.Drawing.Size(966, 402);
             this.tabControl1.TabIndex = 0;
             // 
             // ScreenBorder
@@ -117,7 +117,7 @@
             this.ScreenBorder.Location = new System.Drawing.Point(4, 22);
             this.ScreenBorder.Margin = new System.Windows.Forms.Padding(0);
             this.ScreenBorder.Name = "ScreenBorder";
-            this.ScreenBorder.Size = new System.Drawing.Size(758, 376);
+            this.ScreenBorder.Size = new System.Drawing.Size(958, 376);
             this.ScreenBorder.TabIndex = 0;
             this.ScreenBorder.Text = "屏幕边缘";
             this.ScreenBorder.UseVisualStyleBackColor = true;
@@ -126,7 +126,7 @@
             // 
             this.selectedText.AutoSize = true;
             this.selectedText.Font = new System.Drawing.Font("宋体", 20F);
-            this.selectedText.Location = new System.Drawing.Point(531, 16);
+            this.selectedText.Location = new System.Drawing.Point(729, 34);
             this.selectedText.Name = "selectedText";
             this.selectedText.Size = new System.Drawing.Size(0, 27);
             this.selectedText.TabIndex = 25;
@@ -141,22 +141,23 @@
             "模拟热键",
             "运行命令",
             "输出文字",
-            "音量：加",
-            "音量：减",
-            "音量：静音",
+            "音量加",
+            "音量减",
+            "静音",
             "多媒体：上一首",
             "多媒体：下一首",
-            "多媒体：播放/暂停",
+            "播放/暂停",
             "窗口：不透明度增",
             "窗口：不透明度减",
             "窗口：切换置顶",
             "屏幕：关",
             "电源：休眠",
             "电源：睡眠"});
-            this.stay_combobox.Location = new System.Drawing.Point(477, 215);
+            this.stay_combobox.Location = new System.Drawing.Point(675, 233);
             this.stay_combobox.Name = "stay_combobox";
             this.stay_combobox.Size = new System.Drawing.Size(255, 24);
             this.stay_combobox.TabIndex = 24;
+            this.stay_combobox.SelectedIndexChanged += new System.EventHandler(this.stay_combobox_SelectedIndexChanged);
             // 
             // wheelDown_combobox
             // 
@@ -168,22 +169,23 @@
             "模拟热键",
             "运行命令",
             "输出文字",
-            "音量：加",
-            "音量：减",
-            "音量：静音",
+            "音量加",
+            "音量减",
+            "静音",
             "多媒体：上一首",
             "多媒体：下一首",
-            "多媒体：播放/暂停",
+            "播放/暂停",
             "窗口：不透明度增",
             "窗口：不透明度减",
             "窗口：切换置顶",
             "屏幕：关",
             "电源：休眠",
             "电源：睡眠"});
-            this.wheelDown_combobox.Location = new System.Drawing.Point(477, 161);
+            this.wheelDown_combobox.Location = new System.Drawing.Point(675, 179);
             this.wheelDown_combobox.Name = "wheelDown_combobox";
             this.wheelDown_combobox.Size = new System.Drawing.Size(255, 24);
             this.wheelDown_combobox.TabIndex = 23;
+            this.wheelDown_combobox.SelectedIndexChanged += new System.EventHandler(this.wheelDown_combobox_SelectedIndexChanged);
             // 
             // wheel_combobox
             // 
@@ -201,16 +203,16 @@
             "翻页",
             "页头/页尾",
             "自定义"});
-            this.wheel_combobox.Location = new System.Drawing.Point(477, 108);
+            this.wheel_combobox.Location = new System.Drawing.Point(675, 126);
             this.wheel_combobox.Name = "wheel_combobox";
             this.wheel_combobox.Size = new System.Drawing.Size(255, 24);
             this.wheel_combobox.TabIndex = 22;
-            this.wheel_combobox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.wheel_combobox.SelectedIndexChanged += new System.EventHandler(this.wheel_combobox_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(391, 218);
+            this.label4.Location = new System.Drawing.Point(589, 236);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(40, 16);
             this.label4.TabIndex = 21;
@@ -219,7 +221,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(391, 164);
+            this.label3.Location = new System.Drawing.Point(589, 182);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 16);
             this.label3.TabIndex = 20;
@@ -228,7 +230,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(391, 110);
+            this.label2.Location = new System.Drawing.Point(589, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 16);
             this.label2.TabIndex = 19;
@@ -237,7 +239,7 @@
             // usage_checkBox
             // 
             this.usage_checkBox.AutoSize = true;
-            this.usage_checkBox.Location = new System.Drawing.Point(394, 55);
+            this.usage_checkBox.Location = new System.Drawing.Point(592, 73);
             this.usage_checkBox.Name = "usage_checkBox";
             this.usage_checkBox.Size = new System.Drawing.Size(59, 20);
             this.usage_checkBox.TabIndex = 18;
@@ -249,7 +251,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 20F);
-            this.label1.Location = new System.Drawing.Point(389, 16);
+            this.label1.Location = new System.Drawing.Point(587, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(147, 27);
             this.label1.TabIndex = 17;
@@ -259,7 +261,7 @@
             // 
             this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox8.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox8.Location = new System.Drawing.Point(230, 176);
+            this.textBox8.Location = new System.Drawing.Point(350, 176);
             this.textBox8.Name = "textBox8";
             this.textBox8.Size = new System.Drawing.Size(24, 22);
             this.textBox8.TabIndex = 16;
@@ -270,7 +272,7 @@
             // 
             this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox7.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox7.Location = new System.Drawing.Point(134, 176);
+            this.textBox7.Location = new System.Drawing.Point(194, 176);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(24, 22);
             this.textBox7.TabIndex = 15;
@@ -281,7 +283,7 @@
             // 
             this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox6.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox6.Location = new System.Drawing.Point(182, 226);
+            this.textBox6.Location = new System.Drawing.Point(272, 226);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(24, 22);
             this.textBox6.TabIndex = 14;
@@ -292,7 +294,7 @@
             // 
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox5.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox5.Location = new System.Drawing.Point(182, 128);
+            this.textBox5.Location = new System.Drawing.Point(272, 128);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(24, 22);
             this.textBox5.TabIndex = 13;
@@ -303,7 +305,7 @@
             // 
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox4.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox4.Location = new System.Drawing.Point(230, 226);
+            this.textBox4.Location = new System.Drawing.Point(350, 226);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(24, 22);
             this.textBox4.TabIndex = 12;
@@ -314,7 +316,7 @@
             // 
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox3.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox3.Location = new System.Drawing.Point(230, 128);
+            this.textBox3.Location = new System.Drawing.Point(350, 128);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(24, 22);
             this.textBox3.TabIndex = 11;
@@ -325,7 +327,7 @@
             // 
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox2.Location = new System.Drawing.Point(134, 226);
+            this.textBox2.Location = new System.Drawing.Point(194, 226);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(24, 22);
             this.textBox2.TabIndex = 10;
@@ -336,7 +338,7 @@
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.Location = new System.Drawing.Point(134, 128);
+            this.textBox1.Location = new System.Drawing.Point(194, 128);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(24, 22);
             this.textBox1.TabIndex = 9;
@@ -351,10 +353,10 @@
             this.bottomRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bottomRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bottomRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bottomRight.Font = new System.Drawing.Font("宋体", 9F);
-            this.bottomRight.Location = new System.Drawing.Point(260, 252);
+            this.bottomRight.Font = new System.Drawing.Font("宋体", 12F);
+            this.bottomRight.Location = new System.Drawing.Point(380, 250);
             this.bottomRight.Name = "bottomRight";
-            this.bottomRight.Size = new System.Drawing.Size(120, 120);
+            this.bottomRight.Size = new System.Drawing.Size(180, 120);
             this.bottomRight.TabIndex = 7;
             this.bottomRight.Tag = "右下角";
             this.bottomRight.UseVisualStyleBackColor = true;
@@ -368,10 +370,10 @@
             this.middleRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.middleRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.middleRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.middleRight.Font = new System.Drawing.Font("宋体", 9F);
-            this.middleRight.Location = new System.Drawing.Point(260, 128);
+            this.middleRight.Font = new System.Drawing.Font("宋体", 12F);
+            this.middleRight.Location = new System.Drawing.Point(380, 128);
             this.middleRight.Name = "middleRight";
-            this.middleRight.Size = new System.Drawing.Size(120, 120);
+            this.middleRight.Size = new System.Drawing.Size(180, 120);
             this.middleRight.TabIndex = 4;
             this.middleRight.Tag = "右边缘";
             this.middleRight.UseVisualStyleBackColor = true;
@@ -385,10 +387,10 @@
             this.topRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.topRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.topRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.topRight.Font = new System.Drawing.Font("宋体", 9F);
-            this.topRight.Location = new System.Drawing.Point(260, 4);
+            this.topRight.Font = new System.Drawing.Font("宋体", 12F);
+            this.topRight.Location = new System.Drawing.Point(380, 2);
             this.topRight.Name = "topRight";
-            this.topRight.Size = new System.Drawing.Size(120, 120);
+            this.topRight.Size = new System.Drawing.Size(180, 120);
             this.topRight.TabIndex = 2;
             this.topRight.Tag = "右上角";
             this.topRight.UseVisualStyleBackColor = true;
@@ -402,10 +404,10 @@
             this.bottomMiddle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bottomMiddle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bottomMiddle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bottomMiddle.Font = new System.Drawing.Font("宋体", 9F);
-            this.bottomMiddle.Location = new System.Drawing.Point(134, 252);
+            this.bottomMiddle.Font = new System.Drawing.Font("宋体", 12F);
+            this.bottomMiddle.Location = new System.Drawing.Point(194, 250);
             this.bottomMiddle.Name = "bottomMiddle";
-            this.bottomMiddle.Size = new System.Drawing.Size(120, 120);
+            this.bottomMiddle.Size = new System.Drawing.Size(180, 120);
             this.bottomMiddle.TabIndex = 6;
             this.bottomMiddle.Tag = "下边缘";
             this.bottomMiddle.UseVisualStyleBackColor = true;
@@ -419,10 +421,10 @@
             this.topMiddle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.topMiddle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.topMiddle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.topMiddle.Font = new System.Drawing.Font("宋体", 9F);
-            this.topMiddle.Location = new System.Drawing.Point(134, 4);
+            this.topMiddle.Font = new System.Drawing.Font("宋体", 12F);
+            this.topMiddle.Location = new System.Drawing.Point(194, 2);
             this.topMiddle.Name = "topMiddle";
-            this.topMiddle.Size = new System.Drawing.Size(120, 120);
+            this.topMiddle.Size = new System.Drawing.Size(180, 120);
             this.topMiddle.TabIndex = 1;
             this.topMiddle.Tag = "上边缘";
             this.topMiddle.UseVisualStyleBackColor = true;
@@ -436,10 +438,10 @@
             this.bottomLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bottomLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.bottomLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bottomLeft.Font = new System.Drawing.Font("宋体", 9F);
-            this.bottomLeft.Location = new System.Drawing.Point(8, 252);
+            this.bottomLeft.Font = new System.Drawing.Font("宋体", 12F);
+            this.bottomLeft.Location = new System.Drawing.Point(8, 250);
             this.bottomLeft.Name = "bottomLeft";
-            this.bottomLeft.Size = new System.Drawing.Size(120, 120);
+            this.bottomLeft.Size = new System.Drawing.Size(180, 120);
             this.bottomLeft.TabIndex = 5;
             this.bottomLeft.Tag = "左下角";
             this.bottomLeft.UseVisualStyleBackColor = true;
@@ -453,10 +455,10 @@
             this.middleLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.middleLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.middleLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.middleLeft.Font = new System.Drawing.Font("宋体", 9F);
-            this.middleLeft.Location = new System.Drawing.Point(8, 128);
+            this.middleLeft.Font = new System.Drawing.Font("宋体", 12F);
+            this.middleLeft.Location = new System.Drawing.Point(8, 126);
             this.middleLeft.Name = "middleLeft";
-            this.middleLeft.Size = new System.Drawing.Size(120, 120);
+            this.middleLeft.Size = new System.Drawing.Size(180, 120);
             this.middleLeft.TabIndex = 3;
             this.middleLeft.Tag = "左边缘";
             this.middleLeft.UseVisualStyleBackColor = true;
@@ -470,10 +472,10 @@
             this.topLeft.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.topLeft.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.topLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.topLeft.Font = new System.Drawing.Font("宋体", 9F);
-            this.topLeft.Location = new System.Drawing.Point(8, 4);
+            this.topLeft.Font = new System.Drawing.Font("宋体", 12F);
+            this.topLeft.Location = new System.Drawing.Point(8, 2);
             this.topLeft.Name = "topLeft";
-            this.topLeft.Size = new System.Drawing.Size(120, 120);
+            this.topLeft.Size = new System.Drawing.Size(180, 120);
             this.topLeft.TabIndex = 0;
             this.topLeft.Tag = "左上角";
             this.topLeft.UseVisualStyleBackColor = true;
@@ -510,32 +512,32 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.显示窗口ToolStripMenuItem,
-            this.启用ToolStripMenuItem,
-            this.退出ToolStripMenuItem});
+            this.show_ToolStripMenuItem,
+            this.switch_ToolStripMenuItem,
+            this.exit_ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(125, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 92);
             // 
-            // 显示窗口ToolStripMenuItem
+            // show_ToolStripMenuItem
             // 
-            this.显示窗口ToolStripMenuItem.Name = "显示窗口ToolStripMenuItem";
-            this.显示窗口ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.显示窗口ToolStripMenuItem.Text = "显示窗口";
-            this.显示窗口ToolStripMenuItem.Click += new System.EventHandler(this.showForm);
+            this.show_ToolStripMenuItem.Name = "show_ToolStripMenuItem";
+            this.show_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.show_ToolStripMenuItem.Text = "显示窗口";
+            this.show_ToolStripMenuItem.Click += new System.EventHandler(this.showForm);
             // 
-            // 启用ToolStripMenuItem
+            // switch_ToolStripMenuItem
             // 
-            this.启用ToolStripMenuItem.Name = "启用ToolStripMenuItem";
-            this.启用ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.启用ToolStripMenuItem.Text = "启用";
-            this.启用ToolStripMenuItem.Click += new System.EventHandler(this.changeUsingStatus);
+            this.switch_ToolStripMenuItem.Name = "switch_ToolStripMenuItem";
+            this.switch_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.switch_ToolStripMenuItem.Text = "启用";
+            this.switch_ToolStripMenuItem.Click += new System.EventHandler(this.changeUsingStatus);
             // 
-            // 退出ToolStripMenuItem
+            // exit_ToolStripMenuItem
             // 
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.退出ToolStripMenuItem.Text = "退出";
-            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.exit);
+            this.exit_ToolStripMenuItem.Name = "exit_ToolStripMenuItem";
+            this.exit_ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exit_ToolStripMenuItem.Text = "退出";
+            this.exit_ToolStripMenuItem.Click += new System.EventHandler(this.exit);
             // 
             // switchButton
             // 
@@ -545,12 +547,12 @@
             this.switchButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.switchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.switchButton.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
-            this.switchButton.ForeColor = System.Drawing.Color.ForestGreen;
+            this.switchButton.ForeColor = System.Drawing.Color.OrangeRed;
             this.switchButton.Location = new System.Drawing.Point(9, 13);
             this.switchButton.Name = "switchButton";
             this.switchButton.Size = new System.Drawing.Size(75, 28);
             this.switchButton.TabIndex = 1;
-            this.switchButton.Text = "运行中";
+            this.switchButton.Text = "已关闭";
             this.switchButton.UseVisualStyleBackColor = false;
             this.switchButton.Click += new System.EventHandler(this.switchButton_Click);
             // 
@@ -560,7 +562,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(984, 461);
             this.Controls.Add(this.switchButton);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -612,9 +614,9 @@
         private System.Windows.Forms.Label selectedText;
         private System.Windows.Forms.NotifyIcon HotkeyExtendIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 显示窗口ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 启用ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem show_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem switch_ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exit_ToolStripMenuItem;
         private System.Windows.Forms.Button switchButton;
     }
 }

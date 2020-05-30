@@ -39,7 +39,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.usage_checkBox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -95,7 +95,7 @@
             this.ScreenBorder.Controls.Add(this.label4);
             this.ScreenBorder.Controls.Add(this.label3);
             this.ScreenBorder.Controls.Add(this.label2);
-            this.ScreenBorder.Controls.Add(this.checkBox1);
+            this.ScreenBorder.Controls.Add(this.usage_checkBox);
             this.ScreenBorder.Controls.Add(this.label1);
             this.ScreenBorder.Controls.Add(this.textBox8);
             this.ScreenBorder.Controls.Add(this.textBox7);
@@ -136,6 +136,7 @@
             this.stay_combobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.stay_combobox.FormattingEnabled = true;
             this.stay_combobox.Items.AddRange(new object[] {
+            "无",
             "屏蔽输入",
             "模拟热键",
             "运行命令",
@@ -162,6 +163,7 @@
             this.wheelDown_combobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.wheelDown_combobox.FormattingEnabled = true;
             this.wheelDown_combobox.Items.AddRange(new object[] {
+            "无",
             "屏蔽输入",
             "模拟热键",
             "运行命令",
@@ -232,15 +234,16 @@
             this.label2.TabIndex = 19;
             this.label2.Text = "滚轮";
             // 
-            // checkBox1
+            // usage_checkBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(394, 55);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(59, 20);
-            this.checkBox1.TabIndex = 18;
-            this.checkBox1.Text = "启用";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.usage_checkBox.AutoSize = true;
+            this.usage_checkBox.Location = new System.Drawing.Point(394, 55);
+            this.usage_checkBox.Name = "usage_checkBox";
+            this.usage_checkBox.Size = new System.Drawing.Size(59, 20);
+            this.usage_checkBox.TabIndex = 18;
+            this.usage_checkBox.Text = "启用";
+            this.usage_checkBox.UseVisualStyleBackColor = true;
+            this.usage_checkBox.CheckedChanged += new System.EventHandler(this.usage_checkBox_CheckedChanged);
             // 
             // label1
             // 
@@ -352,7 +355,7 @@
             this.bottomRight.Location = new System.Drawing.Point(260, 252);
             this.bottomRight.Name = "bottomRight";
             this.bottomRight.Size = new System.Drawing.Size(120, 120);
-            this.bottomRight.TabIndex = 8;
+            this.bottomRight.TabIndex = 7;
             this.bottomRight.Tag = "右下角";
             this.bottomRight.UseVisualStyleBackColor = true;
             this.bottomRight.Click += new System.EventHandler(this.screenBlock_Click);
@@ -369,7 +372,7 @@
             this.middleRight.Location = new System.Drawing.Point(260, 128);
             this.middleRight.Name = "middleRight";
             this.middleRight.Size = new System.Drawing.Size(120, 120);
-            this.middleRight.TabIndex = 7;
+            this.middleRight.TabIndex = 4;
             this.middleRight.Tag = "右边缘";
             this.middleRight.UseVisualStyleBackColor = true;
             this.middleRight.Click += new System.EventHandler(this.screenBlock_Click);
@@ -386,7 +389,7 @@
             this.topRight.Location = new System.Drawing.Point(260, 4);
             this.topRight.Name = "topRight";
             this.topRight.Size = new System.Drawing.Size(120, 120);
-            this.topRight.TabIndex = 6;
+            this.topRight.TabIndex = 2;
             this.topRight.Tag = "右上角";
             this.topRight.UseVisualStyleBackColor = true;
             this.topRight.Click += new System.EventHandler(this.screenBlock_Click);
@@ -403,7 +406,7 @@
             this.bottomMiddle.Location = new System.Drawing.Point(134, 252);
             this.bottomMiddle.Name = "bottomMiddle";
             this.bottomMiddle.Size = new System.Drawing.Size(120, 120);
-            this.bottomMiddle.TabIndex = 5;
+            this.bottomMiddle.TabIndex = 6;
             this.bottomMiddle.Tag = "下边缘";
             this.bottomMiddle.UseVisualStyleBackColor = true;
             this.bottomMiddle.Click += new System.EventHandler(this.screenBlock_Click);
@@ -420,7 +423,7 @@
             this.topMiddle.Location = new System.Drawing.Point(134, 4);
             this.topMiddle.Name = "topMiddle";
             this.topMiddle.Size = new System.Drawing.Size(120, 120);
-            this.topMiddle.TabIndex = 3;
+            this.topMiddle.TabIndex = 1;
             this.topMiddle.Tag = "上边缘";
             this.topMiddle.UseVisualStyleBackColor = true;
             this.topMiddle.Click += new System.EventHandler(this.screenBlock_Click);
@@ -437,7 +440,7 @@
             this.bottomLeft.Location = new System.Drawing.Point(8, 252);
             this.bottomLeft.Name = "bottomLeft";
             this.bottomLeft.Size = new System.Drawing.Size(120, 120);
-            this.bottomLeft.TabIndex = 2;
+            this.bottomLeft.TabIndex = 5;
             this.bottomLeft.Tag = "左下角";
             this.bottomLeft.UseVisualStyleBackColor = true;
             this.bottomLeft.Click += new System.EventHandler(this.screenBlock_Click);
@@ -454,7 +457,7 @@
             this.middleLeft.Location = new System.Drawing.Point(8, 128);
             this.middleLeft.Name = "middleLeft";
             this.middleLeft.Size = new System.Drawing.Size(120, 120);
-            this.middleLeft.TabIndex = 1;
+            this.middleLeft.TabIndex = 3;
             this.middleLeft.Tag = "左边缘";
             this.middleLeft.UseVisualStyleBackColor = true;
             this.middleLeft.Click += new System.EventHandler(this.screenBlock_Click);
@@ -601,7 +604,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox usage_checkBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox stay_combobox;
         private System.Windows.Forms.ComboBox wheelDown_combobox;

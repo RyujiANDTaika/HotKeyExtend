@@ -17,6 +17,10 @@ namespace HotkeyExtend
         public MainWindow()
         {
             InitializeComponent();
+            if(serviceCtrl.settings.screenBlockStatus == null)
+            {
+                serviceCtrl.initialSettings();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -41,6 +45,11 @@ namespace HotkeyExtend
             if(lastClickedButton != null)
                 lastClickedButton.BackColor = System.Drawing.Color.White;
             lastClickedButton = thisClickedButton;
+
+            usage_checkBox.Checked = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex, 0] == 1;
+            wheel_combobox.SelectedIndex = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex, 1];
+            wheelDown_combobox.SelectedIndex = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex, 2];
+            stay_combobox.SelectedIndex = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex, 3];
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -100,14 +109,22 @@ namespace HotkeyExtend
             {
                 switchButton.Text = "已关闭";
                 switchButton.ForeColor = System.Drawing.Color.OrangeRed;
-                serviceCtrl.stopService();
+                serviceCtrl.settings.switchStatus = false;
+                //serviceCtrl.stopService();
             }
             else
             {
                 switchButton.Text = "运行中";
                 switchButton.ForeColor = System.Drawing.Color.ForestGreen;
-                serviceCtrl.startService();
+                serviceCtrl.settings.switchStatus = true;
+                //serviceCtrl.startService();
             }
+        }
+
+        private void usage_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            serviceCtrl.settings.screenBlockStatus[lastClickedButton.TabIndex, 0] = 
+                usage_checkBox.Checked ? 1 : 0;
         }
     }
 }

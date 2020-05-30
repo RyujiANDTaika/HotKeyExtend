@@ -180,11 +180,11 @@ namespace HotkeyExtend
             }
             if (wheelDown_combobox.SelectedIndex != 0)
             {
-                text += "滚轮：" + wheelDown_combobox.Text + "\n";
+                text += "按下滚轮：" + wheelDown_combobox.Text + "\n";
             }
             if (stay_combobox.SelectedIndex != 0)
             {
-                text += "滚轮：" + stay_combobox.Text + "\n";
+                text += "不动：" + stay_combobox.Text + "\n";
             }
             lastClickedButton.Text = text;
         }

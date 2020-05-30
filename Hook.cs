@@ -82,62 +82,28 @@ namespace HotkeyExtend
             }
         }
 
-        private const int WM_KEYDOWN = 0x0100;
-        private const int WM_KEYUP = 0x0101;
-        private const int WM_SYSKEYDOWN = 0x0104;
-        private const int WM_SYSKEYUP = 0x0105;
+        
 
-        //KBDLLHOOKSTRUCT 键盘钩子获取到的消息体
-        [StructLayout(LayoutKind.Sequential)]
-        public class KBDLLHOOKSTRUCT
-        {
-            public int vkCode;          //虚拟键码
-            public int scanCode;
-            public int flags;
-            public int time;            //时间戳
-            public int dwExtraInfo;
-        }
+        public delegate void keyboardServiceEventHandler(Int32 wParam, IntPtr lParam);
+        public event keyboardServiceEventHandler keyboardService;
 
         public int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
-            KBDLLHOOKSTRUCT msg = (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(KBDLLHOOKSTRUCT));
-            Console.WriteLine(nCode);
+            
+            keyboardService(wParam, lParam);
 
             return CallNextHookEx(hKeyboardHook,nCode,wParam,lParam);
         }
 
-        private const int WM_LBUTTONDOWN = 0x0201;
-        private const int WM_LBUTTONUP = 0x0202;
-        private const int WM_MOUSEMOVE = 0x0200;
-        private const int WM_MOUSEWHEEL = 0x020A;   //滚轮旋转
-        private const int WM_MOUSEHWHEEL = 0x020E;  //水平滚轮旋转？？？
-        private const int WM_RBUTTONDOWN = 0x0204;
-        private const int WM_RBUTTONUP = 0x0205;
+        
 
-        [StructLayout(LayoutKind.Sequential)]
-        public class POINT
-        {
-            public int x;
-            public int y;
-        };
-
-        [StructLayout(LayoutKind.Sequential)]
-        public class MSLLHOOKSTRUCT
-        {
-            public POINT pt;
-            public int mouseData;
-            public int flags;
-            public int time;
-            public int dwExtraInfo;
-        }
+        public delegate void mouseServiceEventHandler(Int32 wParam, IntPtr lParam);
+        public event mouseServiceEventHandler mouseService;
 
         public int MouseHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
-            MSLLHOOKSTRUCT msg = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
-            if(wParam == WM_MOUSEMOVE)
-            {
-
-            }
+            
+            mouseService(wParam, lParam);
             return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
         }
     }

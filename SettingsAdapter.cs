@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace HotkeyExtend
 {
-    class ServiceCtrl
+    class SettingsAdapter
     {
         public class Settings
         {
@@ -54,46 +54,8 @@ namespace HotkeyExtend
             }
         }
 
-        public bool serviceStatus;
-        
-        public void startService()
-        {
-            serviceStatus = true;
-        }
-
-        public void stopService()
-        {
-            serviceStatus = false;
-        }
-
-        public class blockStatus
-        {
-            public bool status { get; set; }
-            public int wheelIndex { get; set; }
-            public int wheelDownIndex { get; set; }
-            public int stayIndex { get; set; }
-            public blockStatus()
-            {
-                status = false;
-                wheelIndex = 0;
-                wheelDownIndex = 0;
-                stayIndex = 0;
-            }
-        }
-
         public void initialSettings()
         {
-            //Properties.Settings.Default.switchStatus = false;
-            Properties.Settings.Default.screenBlockStatus = new ArrayList {
-                new blockStatus(),
-                new blockStatus(),
-                new blockStatus(),
-                new blockStatus(),
-                new blockStatus(),
-                new blockStatus(),
-                new blockStatus(),
-                new blockStatus(),
-            };
             Properties.Settings.Default.screenBlockStatus = new ArrayList {
                 0,0,0,0,
                 0,0,0,0,

@@ -12,22 +12,23 @@ namespace HotkeyExtend
 {
     public partial class MainWindow : Form
     {
-        private ServiceCtrl serviceCtrl;
+        private static SettingsAdapter settingsAdapter;
+        private static Service service;
 
         public MainWindow()
         {
             InitializeComponent();
-            serviceCtrl = new ServiceCtrl();
-            if (serviceCtrl.settings.screenBlockStatus == null)
+            settingsAdapter = new SettingsAdapter();
+            if (settingsAdapter.settings.screenBlockStatus == null)
             {
-                serviceCtrl.initialSettings();
+                settingsAdapter.initialSettings();
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             initialText();
-            if (serviceCtrl.settings.switchStatus)
+            if (settingsAdapter.settings.switchStatus)
                 switchButton_Click(switchButton,null);
         }
 
@@ -49,11 +50,10 @@ namespace HotkeyExtend
                 lastClickedButton.BackColor = System.Drawing.Color.White;
             lastClickedButton = thisClickedButton;
 
-            usage_checkBox.Checked = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex * 4] != 1;
-            usage_checkBox.Checked = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex*4] == 1;
-            wheel_combobox.SelectedIndex = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex*4+1];
-            wheelDown_combobox.SelectedIndex = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex*4+2];
-            stay_combobox.SelectedIndex = serviceCtrl.settings.screenBlockStatus[thisClickedButton.TabIndex*4+3];
+            usage_checkBox.Checked = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4] == 1;
+            wheel_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+1];
+            wheelDown_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+2];
+            stay_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+3];
         }
 
         private void iconClick(object sender, MouseEventArgs e)
@@ -76,7 +76,7 @@ namespace HotkeyExtend
             }
             if(e.Button == MouseButtons.Right)
             {
-                if (serviceCtrl.serviceStatus)
+                if (service.serviceStatus)
                 {
                     switch_ToolStripMenuItem.Text = "停用";
                 }
@@ -119,24 +119,27 @@ namespace HotkeyExtend
             {
                 switchButton.Text = "已关闭";
                 switchButton.ForeColor = System.Drawing.Color.OrangeRed;
-                serviceCtrl.settings.switchStatus = false;
-                serviceCtrl.stopService();
+                settingsAdapter.settings.switchStatus = false;
+                service.stop();
             }
             else
             {
                 switchButton.Text = "运行中";
                 switchButton.ForeColor = System.Drawing.Color.ForestGreen;
-                serviceCtrl.settings.switchStatus = true;
-                serviceCtrl.startService();
+                settingsAdapter.settings.switchStatus = true;
+                service.start();
             }
         }
 
         private void usage_checkBox_CheckedChanged(object sender, EventArgs e)
         {
-            int[] tempArray = serviceCtrl.settings.screenBlockStatus;
-            tempArray[lastClickedButton.TabIndex*4] = 
+            int[] tempArray = settingsAdapter.settings.screenBlockStatus;
+            if((usage_checkBox.Checked ? 1 : 0) != tempArray[lastClickedButton.TabIndex * 4])
+            {
+                tempArray[lastClickedButton.TabIndex * 4] =
                 usage_checkBox.Checked ? 1 : 0;
-            serviceCtrl.settings.screenBlockStatus = tempArray;
+                settingsAdapter.settings.screenBlockStatus = tempArray;
+            }
             if (usage_checkBox.Checked)
             {
                 lastClickedButton.ForeColor = System.Drawing.Color.Black;
@@ -149,25 +152,34 @@ namespace HotkeyExtend
 
         private void wheel_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int[] tempArray = serviceCtrl.settings.screenBlockStatus;
-            tempArray[lastClickedButton.TabIndex * 4 + 1] = wheel_combobox.SelectedIndex;
-            serviceCtrl.settings.screenBlockStatus = tempArray;
+            int[] tempArray = settingsAdapter.settings.screenBlockStatus;
+            if(wheel_combobox.SelectedIndex != tempArray[lastClickedButton.TabIndex * 4 + 1])
+            {
+                tempArray[lastClickedButton.TabIndex * 4 + 1] = wheel_combobox.SelectedIndex;
+                settingsAdapter.settings.screenBlockStatus = tempArray;
+            }
             textChange();
         }
 
         private void wheelDown_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int[] tempArray = serviceCtrl.settings.screenBlockStatus;
-            tempArray[lastClickedButton.TabIndex * 4 + 2] = wheelDown_combobox.SelectedIndex;
-            serviceCtrl.settings.screenBlockStatus = tempArray;
+            int[] tempArray = settingsAdapter.settings.screenBlockStatus;
+            if(wheelDown_combobox.SelectedIndex != tempArray[lastClickedButton.TabIndex * 4 + 2])
+            {
+                tempArray[lastClickedButton.TabIndex * 4 + 2] = wheelDown_combobox.SelectedIndex;
+                settingsAdapter.settings.screenBlockStatus = tempArray;
+            }
             textChange();
         }
 
         private void stay_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int[] tempArray = serviceCtrl.settings.screenBlockStatus;
-            tempArray[lastClickedButton.TabIndex * 4 + 3] = stay_combobox.SelectedIndex;
-            serviceCtrl.settings.screenBlockStatus = tempArray;
+            int[] tempArray = settingsAdapter.settings.screenBlockStatus;
+            if(stay_combobox.SelectedIndex != tempArray[lastClickedButton.TabIndex * 4 + 3])
+            {
+                tempArray[lastClickedButton.TabIndex * 4 + 3] = stay_combobox.SelectedIndex;
+                settingsAdapter.settings.screenBlockStatus = tempArray;
+            }
             textChange();
         }
 

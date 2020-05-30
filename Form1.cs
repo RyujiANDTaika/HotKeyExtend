@@ -13,7 +13,7 @@ namespace HotkeyExtend
     public partial class MainWindow : Form
     {
         private static SettingsAdapter settingsAdapter;
-        private static Service service;
+        private static Service service = new Service();
 
         public MainWindow()
         {

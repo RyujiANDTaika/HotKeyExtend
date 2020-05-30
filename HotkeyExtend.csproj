@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="KeyboardService.cs" />
     <Compile Include="MouseService.cs" />
+    <Compile Include="Operation.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="SettingsAdapter.cs" />
     <Compile Include="Hook.cs" />

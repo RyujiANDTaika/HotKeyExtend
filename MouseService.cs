@@ -11,10 +11,14 @@ namespace HotkeyExtend
 {
     class MouseService
     {
+        private Operation operation = new Operation();
+
         private const int WM_LBUTTONDOWN = 0x0201;
         private const int WM_LBUTTONUP = 0x0202;
         private const int WM_MOUSEMOVE = 0x0200;
         private const int WM_MOUSEWHEEL = 0x020A;   //滚轮旋转
+        private const int WM_MOUSEWHEELDOWN = 0x0207;
+        private const int WM_MOUSEWHEELUP = 0x0208;
         private const int WM_MOUSEHWHEEL = 0x020E;  //水平滚轮旋转？？？
         private const int WM_RBUTTONDOWN = 0x0204;
         private const int WM_RBUTTONUP = 0x0205;
@@ -45,11 +49,30 @@ namespace HotkeyExtend
             msgManager(wParam, msg);
         }
 
-        public delegate void topLeftEventHandler();
+        public void topLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+            if(msg.pt.x >= 0 && msg.pt.x <= 5 && msg.pt.y >= 0 && msg.pt.y <= 5)
+            {
+                Console.WriteLine(wParam);
+                if(wParam == WM_MOUSEWHEELDOWN)
+                {
+                    Console.WriteLine("yes");
+                    topLeft_wheelDown();
+                }
+            }
+        }
 
+        public delegate void topLeft_wheelDownEventHandler();
+        public event topLeft_wheelDownEventHandler topLeft_wheelDown;
+
+        private static SettingsAdapter settingsAdapter = new SettingsAdapter();
         public void updateService()
         {
-
+            int[] statusArray = settingsAdapter.settings.screenBlockStatus;
+            if(statusArray[0] == 1)
+                msgManager += topLeftHandle;
+            if (statusArray[2] == 5)
+                topLeft_wheelDown += operation.volumeIncrease;
         }
     }
 }

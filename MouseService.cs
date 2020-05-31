@@ -153,18 +153,48 @@ namespace HotkeyExtend
                     block.wheelForward += operation.volumeIncrease;
                     block.wheelBackward += operation.volumeDecrease;
                     break;
+                case 2:
+                    block.wheelForward += operation.mediaPrevious;
+                    block.wheelBackward += operation.mediaNext;
+                    break;
+                case 3:
+                    block.wheelForward += operation.pageSwitchRight;
+                    block.wheelBackward += operation.pageSwitchLeft;
+                    break;
+                case 4:
+                    block.wheelForward += operation.applicationChange;
+                    block.wheelBackward += operation.applicationChange;
+                    break;
+                case 5:
+                    block.wheelForward += operation.virtualDesktop;
+                    block.wheelBackward += operation.virtualDesktop;
+                    break;
+                case 6:
+                    block.wheelForward += operation.pageUp;
+                    block.wheelBackward += operation.pageDown;
+                    break;
+                case 7:
+                    block.wheelForward += operation.pageHead;
+                    block.wheelBackward += operation.pageEnd;
+                    break;
             }
         }
 
         private void addWheelDownEvent(BlockEvent block, int wheelDown)
         {
-            
+            switch (wheelDown)
+            {
+
+            }
         }
 
         private void addStayEvent(BlockEvent block, int stay)
         {
 
         }
+
+        private int height = Screen.PrimaryScreen.Bounds.Height;
+        private int width = Screen.PrimaryScreen.Bounds.Width;
 
         public void topLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
@@ -186,37 +216,128 @@ namespace HotkeyExtend
 
         public void topMiddleHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-
+            if (msg.pt.x >= 5 && msg.pt.x <= width -5 && msg.pt.y == 0)
+            {
+                if (wParam == WM_MOUSEWHEELDOWN)
+                {
+                    topMiddleBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        topMiddleBlock.wheelForwardInvoke();
+                    else
+                        topMiddleBlock.wheelBackwardInvoke();
+                }
+            }
         }
 
         public void topRightHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-
+            if (msg.pt.x >= width - 5 && msg.pt.x <= width && msg.pt.y >= 0 && msg.pt.y <= 5)
+            {
+                if (wParam == WM_MOUSEWHEELDOWN)
+                {
+                    topRightBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        topRightBlock.wheelForwardInvoke();
+                    else
+                        topRightBlock.wheelBackwardInvoke();
+                }
+            }
         }
 
         public void middleLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-
+            if (msg.pt.x == 0 && msg.pt.y >= 5 && msg.pt.y <= height - 5)
+            {
+                if (wParam == WM_MOUSEWHEELDOWN)
+                {
+                    middleLeftBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        middleLeftBlock.wheelForwardInvoke();
+                    else
+                        middleLeftBlock.wheelBackwardInvoke();
+                }
+            }
         }
 
         public void middleRightHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-
+            if (msg.pt.x <= width && msg.pt.x >= width - 5 && msg.pt.y >= 5 && msg.pt.y <= height - 5)
+            {
+                if (wParam == WM_MOUSEWHEELDOWN)
+                {
+                    middleRightBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        middleRightBlock.wheelForwardInvoke();
+                    else
+                        middleRightBlock.wheelBackwardInvoke();
+                }
+            }
         }
 
         public void bottomLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-
+            if (msg.pt.x >= 0 && msg.pt.x <= 5 && msg.pt.y >= height - 5 && msg.pt.y <= height)
+            {
+                if (wParam == WM_MOUSEWHEELDOWN)
+                {
+                    bottomLeftBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        bottomLeftBlock.wheelForwardInvoke();
+                    else
+                        bottomLeftBlock.wheelBackwardInvoke();
+                }
+            }
         }
 
         public void bottomMiddleHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-
+            if (msg.pt.x >= 5 && msg.pt.x <= width - 5 && msg.pt.y <= height && msg.pt.y >= height - 5)
+            {
+                if (wParam == WM_MOUSEWHEELDOWN)
+                {
+                    bottomMiddleBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        bottomMiddleBlock.wheelForwardInvoke();
+                    else
+                        bottomMiddleBlock.wheelBackwardInvoke();
+                }
+            }
         }
 
         public void bottomRightHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-
+            if (msg.pt.x >= width - 5 && msg.pt.x <= width && msg.pt.y >= height - 5 && msg.pt.y <= height)
+            {
+                if (wParam == WM_MOUSEWHEELDOWN)
+                {
+                    bottomRightBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        bottomRightBlock.wheelForwardInvoke();
+                    else
+                        bottomRightBlock.wheelBackwardInvoke();
+                }
+            }
         }
     }
 }

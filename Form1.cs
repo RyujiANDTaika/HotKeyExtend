@@ -58,6 +58,7 @@ namespace HotkeyExtend
             wheel_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+1];
             wheelDown_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+2];
             stay_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+3];
+            textChange();
         }
 
         private void iconClick(object sender, MouseEventArgs e)

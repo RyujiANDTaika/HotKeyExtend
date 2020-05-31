@@ -19,8 +19,8 @@ namespace HotkeyExtend
         public const int WH_KEYBOARD_LL = 13;   //键盘钩子类型
         public const int WH_MOUSE_LL = 14;      //鼠标钩子类型
 
-        private static HookProc KeyboardHookProcedure;
-        private static HookProc MouseHookProcedure;
+        public event HookProc KeyboardHookProcedure;
+        public event HookProc MouseHookProcedure;
 
         //挂载钩子
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
@@ -50,21 +50,21 @@ namespace HotkeyExtend
         {
             if (hKeyboardHook == 0)
             {
-                KeyboardHookProcedure = new HookProc(KeyboardHookProc);    //委托实例化
+                KeyboardHookProcedure += KeyboardHookProc;    //委托实例化
                 hKeyboardHook = SetWindowsHookEx(
                     WH_KEYBOARD_LL,                                         //键盘类型
                     KeyboardHookProcedure,                                  //钩子子程
-                    Process.GetCurrentProcess().MainWindowHandle,           //当前程序的句柄
+                    GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName),                            //当前程序的句柄
                     0);
             }
 
             if(hMouseHook == 0)
             {
-                MouseHookProcedure = new HookProc(MouseHookProc);
+                MouseHookProcedure += MouseHookProc;
                 hMouseHook = SetWindowsHookEx(
                     WH_MOUSE_LL,
                     MouseHookProcedure,
-                    Process.GetCurrentProcess().MainWindowHandle,
+                    GetModuleHandle(Process.GetCurrentProcess().MainModule.ModuleName),
                     0);
             }
         }
@@ -74,15 +74,17 @@ namespace HotkeyExtend
             if(hKeyboardHook != 0)
             {
                 UnhookWindowsHookEx(hKeyboardHook);
+                KeyboardHookProcedure -= KeyboardHookProc;
+                hKeyboardHook = 0;
             }
 
             if(hMouseHook != 0)
             {
                 UnhookWindowsHookEx(hMouseHook);
+                MouseHookProcedure -= MouseHookProc;
+                hMouseHook = 0;
             }
         }
-
-        
 
         public delegate void keyboardServiceEventHandler(Int32 wParam, IntPtr lParam);
         public event keyboardServiceEventHandler keyboardService;
@@ -90,20 +92,16 @@ namespace HotkeyExtend
         public int KeyboardHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
             
-            keyboardService(wParam, lParam);
-
+            keyboardService?.Invoke(wParam, lParam);
             return CallNextHookEx(hKeyboardHook,nCode,wParam,lParam);
         }
-
-        
 
         public delegate void mouseServiceEventHandler(Int32 wParam, IntPtr lParam);
         public event mouseServiceEventHandler mouseService;
 
         public int MouseHookProc(int nCode, Int32 wParam, IntPtr lParam)
         {
-            
-            mouseService(wParam, lParam);
+            mouseService?.Invoke(wParam, lParam);
             return CallNextHookEx(hKeyboardHook, nCode, wParam, lParam);
         }
     }

@@ -10,8 +10,8 @@ namespace HotkeyExtend
     {
         public bool serviceStatus;
         public static Hook hook = new Hook();
-        public static MouseService mouseService = new MouseService();
-        public static KeyboardService KeyboardService = new KeyboardService();
+        public MouseService mouseService = new MouseService();
+        public KeyboardService KeyboardService = new KeyboardService();
 
         public void start()
         {
@@ -29,9 +29,9 @@ namespace HotkeyExtend
 
         public void loadService()
         {
+            updateService();
             hook.mouseService += mouseService.mouseMsgReceiver;
             hook.keyboardService += KeyboardService.keyboardMsgReceiver;
-            updateService();
         }
 
         public void unloadService()
@@ -42,8 +42,11 @@ namespace HotkeyExtend
 
         public void updateService()
         {
-            mouseService.updateService();
-            KeyboardService.updateService();
+            if (serviceStatus)
+            {
+                mouseService.updateService();
+                KeyboardService.updateService();
+            }
         }
     }
 }

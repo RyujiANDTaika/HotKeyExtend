@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace HotkeyExtend
 {
     class MouseService
     {
-        private Operation operation = new Operation();
+        private static Operation operation = new Operation();
 
         private const int WM_LBUTTONDOWN = 0x0201;
         private const int WM_LBUTTONUP = 0x0202;
@@ -46,33 +48,175 @@ namespace HotkeyExtend
         public void mouseMsgReceiver(Int32 wParam, IntPtr lParam)
         {
             MSLLHOOKSTRUCT msg = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
-            msgManager(wParam, msg);
+            msgManager?.Invoke(wParam, msg);
+        }
+
+        public MouseService()
+        {
+            initialBlockEvent();
+        }
+
+        public void initialBlockEvent()
+        {
+            topLeftBlock = new BlockEvent();
+            topMiddleBlock = new BlockEvent();
+            topRightBlock = new BlockEvent();
+            middleLeftBlock = new BlockEvent();
+            middleRightBlock = new BlockEvent();
+            bottomLeftBlock = new BlockEvent();
+            bottomMiddleBlock = new BlockEvent();
+            bottomRightBlock = new BlockEvent();
+
+            blockList = new List<BlockEvent>();
+            blockList.Add(topLeftBlock);
+            blockList.Add(topMiddleBlock);
+            blockList.Add(topRightBlock);
+            blockList.Add(middleLeftBlock);
+            blockList.Add(middleRightBlock);
+            blockList.Add(bottomLeftBlock);
+            blockList.Add(bottomMiddleBlock);
+            blockList.Add(bottomRightBlock);
+
+            blockFuncList = new List<msgManagerEventHandler>();
+            blockFuncList.Add(topLeftHandle);
+            blockFuncList.Add(topMiddleHandle);
+            blockFuncList.Add(topRightHandle);
+            blockFuncList.Add(middleLeftHandle);
+            blockFuncList.Add(middleRightHandle);
+            blockFuncList.Add(bottomLeftHandle);
+            blockFuncList.Add(bottomMiddleHandle);
+            blockFuncList.Add(bottomRightHandle);
+
+            msgManager = null;
+        }
+
+
+        public delegate void mouseEventHandler();
+
+        public class BlockEvent
+        {
+            public event mouseEventHandler wheelForward;
+            public event mouseEventHandler wheelBackward;
+            public event mouseEventHandler wheelDown;
+            public event mouseEventHandler stay;
+            public void wheelForwardInvoke() { wheelForward?.Invoke(); }
+            public void wheelBackwardInvoke() { wheelBackward?.Invoke(); }
+            public void wheelDownInvoke() { wheelDown?.Invoke(); }
+            public void stayInvoke() { stay?.Invoke(); }
+        }
+
+        private BlockEvent topLeftBlock;
+        private BlockEvent topMiddleBlock;
+        private BlockEvent topRightBlock;
+        private BlockEvent middleLeftBlock;
+        private BlockEvent middleRightBlock;
+        private BlockEvent bottomLeftBlock;
+        private BlockEvent bottomMiddleBlock;
+        private BlockEvent bottomRightBlock;
+
+        private List<BlockEvent> blockList;
+
+        private List<msgManagerEventHandler> blockFuncList;
+
+
+        private static SettingsAdapter settingsAdapter = new SettingsAdapter();
+
+        public void updateService()
+        {
+            initialBlockEvent();
+            int[] statusArray = settingsAdapter.settings.screenBlockStatus;
+            foreach(BlockEvent block in blockList)
+            {
+                int index = blockList.IndexOf(block);
+                if(statusArray[index*4] == 1)
+                {
+                    addWheelEvent(block, statusArray[1]);
+                    addWheelDownEvent(block, statusArray[2]);
+                    addStayEvent(block, statusArray[3]);
+                }
+            }
+            foreach(msgManagerEventHandler blockHandle in blockFuncList)
+            {
+                int index = blockFuncList.IndexOf(blockHandle);
+                if (statusArray[index * 4] == 1)
+                    msgManager += blockHandle;
+            }
+        }
+
+        private void addWheelEvent(BlockEvent block, int wheel)
+        {
+            switch (wheel)
+            {
+                case 0: 
+                    break;
+                case 1: 
+                    block.wheelForward += operation.volumeIncrease;
+                    block.wheelBackward += operation.volumeDecrease;
+                    break;
+            }
+        }
+
+        private void addWheelDownEvent(BlockEvent block, int wheelDown)
+        {
+            
+        }
+
+        private void addStayEvent(BlockEvent block, int stay)
+        {
+
         }
 
         public void topLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-            if(msg.pt.x >= 0 && msg.pt.x <= 5 && msg.pt.y >= 0 && msg.pt.y <= 5)
+            if (msg.pt.x >= 0 && msg.pt.x <= 5 && msg.pt.y >= 0 && msg.pt.y <= 5)
             {
-                Console.WriteLine(wParam);
-                if(wParam == WM_MOUSEWHEELDOWN)
+                if (wParam == WM_MOUSEWHEELDOWN)
                 {
-                    Console.WriteLine("yes");
-                    topLeft_wheelDown();
+                    topLeftBlock.wheelDownInvoke();
+                }
+                if (wParam == WM_MOUSEWHEEL)
+                {
+                    if (msg.mouseData > 0)
+                        topLeftBlock.wheelForwardInvoke();
+                    else
+                        topLeftBlock.wheelBackwardInvoke();
                 }
             }
         }
 
-        public delegate void topLeft_wheelDownEventHandler();
-        public event topLeft_wheelDownEventHandler topLeft_wheelDown;
-
-        private static SettingsAdapter settingsAdapter = new SettingsAdapter();
-        public void updateService()
+        public void topMiddleHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
-            int[] statusArray = settingsAdapter.settings.screenBlockStatus;
-            if(statusArray[0] == 1)
-                msgManager += topLeftHandle;
-            if (statusArray[2] == 5)
-                topLeft_wheelDown += operation.volumeIncrease;
+
+        }
+
+        public void topRightHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+
+        }
+
+        public void middleLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+
+        }
+
+        public void middleRightHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+
+        }
+
+        public void bottomLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+
+        }
+
+        public void bottomMiddleHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+
+        }
+
+        public void bottomRightHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+
         }
     }
 }

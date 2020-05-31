@@ -18,7 +18,7 @@ namespace HotkeyExtend
         public MainWindow()
         {
             InitializeComponent();
-            settingsAdapter = new SettingsAdapter();
+            settingsAdapter = new SettingsAdapter(service);
             if (settingsAdapter.settings.screenBlockStatus == null)
             {
                 settingsAdapter.initialSettings();
@@ -51,6 +51,10 @@ namespace HotkeyExtend
             lastClickedButton = thisClickedButton;
 
             usage_checkBox.Checked = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4] == 1;
+            if (usage_checkBox.Checked)
+                lastClickedButton.ForeColor = System.Drawing.Color.Black;
+            else
+                lastClickedButton.ForeColor = System.Drawing.Color.Gray;
             wheel_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+1];
             wheelDown_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+2];
             stay_combobox.SelectedIndex = settingsAdapter.settings.screenBlockStatus[thisClickedButton.TabIndex*4+3];

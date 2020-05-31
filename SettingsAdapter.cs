@@ -9,6 +9,15 @@ namespace HotkeyExtend
 {
     class SettingsAdapter
     {
+        private static Service service;
+        public SettingsAdapter(Service serviceInstance)
+        {
+            service = serviceInstance;
+        }
+        public SettingsAdapter()
+        {
+
+        }
         public class Settings
         {
             public bool switchStatus
@@ -40,6 +49,7 @@ namespace HotkeyExtend
                     }
                     Properties.Settings.Default.screenBlockStatus = arrayList;
                     Properties.Settings.Default.Save();
+                    service.updateService();
                 }
             }
         }

@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace HotkeyExtend
 {

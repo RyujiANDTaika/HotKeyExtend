@@ -184,7 +184,44 @@ namespace HotkeyExtend
         {
             switch (wheelDown)
             {
-
+                case 0:
+                    break;
+                case 1:
+                    block.wheelDown += operation.volumeIncrease;
+                    break;
+                case 2:
+                    block.wheelDown += operation.volumeDecrease;
+                    break;
+                case 3:
+                    block.wheelDown += operation.volumeMute;
+                    break;
+                case 4:
+                    block.wheelDown += operation.mediaPrevious;
+                    break;
+                case 5:
+                    block.wheelDown += operation.mediaNext;
+                    break;
+                case 6:
+                    block.wheelDown += operation.mediaPlayPause;
+                    break;
+                case 7:
+                    block.wheelDown += operation.transparencyIncrease;
+                    break;
+                case 8:
+                    block.wheelDown += operation.transparencyDecrease;
+                    break;
+                case 9:
+                    block.wheelDown += operation.applicationChange;
+                    break;
+                case 10:
+                    block.wheelDown += operation.shutDownMonitor;
+                    break;
+                case 11:
+                    block.wheelDown += operation.systemHibernates;
+                    break;
+                case 12:
+                    block.wheelDown += operation.systemsuspended;
+                    break;
             }
         }
 
@@ -192,8 +229,43 @@ namespace HotkeyExtend
         {
             switch (stay)
             {
+                case 0:
+                    break;
                 case 1:
                     block.stay += operation.volumeIncrease;
+                    break;
+                case 2:
+                    block.stay += operation.volumeDecrease;
+                    break;
+                case 3:
+                    block.stay += operation.volumeMute;
+                    break;
+                case 4:
+                    block.stay += operation.mediaPrevious;
+                    break;
+                case 5:
+                    block.stay += operation.mediaNext;
+                    break;
+                case 6:
+                    block.stay += operation.mediaPlayPause;
+                    break;
+                case 7:
+                    block.stay += operation.transparencyIncrease;
+                    break;
+                case 8:
+                    block.stay += operation.transparencyDecrease;
+                    break;
+                case 9:
+                    block.stay += operation.applicationChange;
+                    break;
+                case 10:
+                    block.stay += operation.shutDownMonitor;
+                    break;
+                case 11:
+                    block.stay += operation.systemHibernates;
+                    break;
+                case 12:
+                    block.stay += operation.systemsuspended;
                     break;
             }
         }
@@ -248,6 +320,7 @@ namespace HotkeyExtend
                     else
                         topMiddleBlock.wheelBackwardInvoke();
                 }
+                timer.addEvent(topMiddleBlock.stayInvoke);
             }
         }
 
@@ -266,6 +339,7 @@ namespace HotkeyExtend
                     else
                         topRightBlock.wheelBackwardInvoke();
                 }
+                timer.addEvent(topRightBlock.stayInvoke);
             }
         }
 
@@ -284,6 +358,7 @@ namespace HotkeyExtend
                     else
                         middleLeftBlock.wheelBackwardInvoke();
                 }
+                timer.addEvent(middleLeftBlock.stayInvoke);
             }
         }
 
@@ -302,6 +377,7 @@ namespace HotkeyExtend
                     else
                         middleRightBlock.wheelBackwardInvoke();
                 }
+                timer.addEvent(middleRightBlock.stayInvoke);
             }
         }
 
@@ -320,6 +396,7 @@ namespace HotkeyExtend
                     else
                         bottomLeftBlock.wheelBackwardInvoke();
                 }
+                timer.addEvent(bottomLeftBlock.stayInvoke);
             }
         }
 
@@ -338,6 +415,7 @@ namespace HotkeyExtend
                     else
                         bottomMiddleBlock.wheelBackwardInvoke();
                 }
+                timer.addEvent(bottomMiddleBlock.stayInvoke);
             }
         }
 
@@ -356,6 +434,7 @@ namespace HotkeyExtend
                     else
                         bottomRightBlock.wheelBackwardInvoke();
                 }
+                timer.addEvent(bottomRightBlock.stayInvoke);
             }
         }
     }

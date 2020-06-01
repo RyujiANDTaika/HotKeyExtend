@@ -137,10 +137,6 @@
             this.stay_combobox.FormattingEnabled = true;
             this.stay_combobox.Items.AddRange(new object[] {
             "无",
-            "屏蔽输入",
-            "模拟热键",
-            "运行命令",
-            "输出文字",
             "音量加",
             "音量减",
             "静音",
@@ -165,10 +161,6 @@
             this.wheelDown_combobox.FormattingEnabled = true;
             this.wheelDown_combobox.Items.AddRange(new object[] {
             "无",
-            "屏蔽输入",
-            "模拟热键",
-            "运行命令",
-            "输出文字",
             "音量加",
             "音量减",
             "静音",

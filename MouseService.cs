@@ -49,6 +49,7 @@ namespace HotkeyExtend
         {
             MSLLHOOKSTRUCT msg = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
             msgManager?.Invoke(wParam, msg);
+            timerInterrupt(wParam, msg);
         }
 
         public MouseService()
@@ -190,13 +191,26 @@ namespace HotkeyExtend
 
         private void addStayEvent(BlockEvent block, int stay)
         {
-
+            switch (stay)
+            {
+                case 1:
+                    block.stay += operation.volumeIncrease;
+                    break;
+            }
         }
 
         private int height = Screen.PrimaryScreen.Bounds.Height;
         private int width = Screen.PrimaryScreen.Bounds.Width;
 
         private static Timer timer = new Timer();
+
+        public void timerInterrupt(Int32 wParam, MSLLHOOKSTRUCT msg)
+        {
+            if(msg.pt.x >= 5 && msg.pt.x <= width - 5 && msg.pt.y >= 5 && msg.pt.y <= height - 5)
+            {
+                timer.interrupt();
+            }
+        }
 
         public void topLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
@@ -216,23 +230,7 @@ namespace HotkeyExtend
                         topLeftBlock.wheelBackwardInvoke();
                 }
                 //不动
-
-                if (timer.timerEnd != null)  
-                {
-                    timer.timerEnd += topLeftBlock.stayInvoke;  //如果没有就绑定应该触发的事件
-                    timer.start();
-                }
-                else
-                {
-                    if (timer.hasEvent(topLeftBlock.stayInvoke))
-                    {
-                        
-                    }
-                    else
-                    {
-                        timer.restart(topLeftBlock.stayInvoke);
-                    }
-                }
+                timer.addEvent(topLeftBlock.stayInvoke);
             }
         }
 

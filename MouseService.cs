@@ -196,20 +196,42 @@ namespace HotkeyExtend
         private int height = Screen.PrimaryScreen.Bounds.Height;
         private int width = Screen.PrimaryScreen.Bounds.Width;
 
+        private static Timer timer = new Timer();
+
         public void topLeftHandle(Int32 wParam, MSLLHOOKSTRUCT msg)
         {
             if (msg.pt.x >= 0 && msg.pt.x <= 5 && msg.pt.y >= 0 && msg.pt.y <= 5)
             {
+                //按下滚轮
                 if (wParam == WM_MOUSEWHEELDOWN)
                 {
                     topLeftBlock.wheelDownInvoke();
                 }
+                //滚轮滚动
                 if (wParam == WM_MOUSEWHEEL)
                 {
                     if (msg.mouseData > 0)
                         topLeftBlock.wheelForwardInvoke();
                     else
                         topLeftBlock.wheelBackwardInvoke();
+                }
+                //不动
+
+                if (timer.timerEnd != null)  
+                {
+                    timer.timerEnd += topLeftBlock.stayInvoke;  //如果没有就绑定应该触发的事件
+                    timer.start();
+                }
+                else
+                {
+                    if (timer.hasEvent(topLeftBlock.stayInvoke))
+                    {
+                        
+                    }
+                    else
+                    {
+                        timer.restart(topLeftBlock.stayInvoke);
+                    }
                 }
             }
         }

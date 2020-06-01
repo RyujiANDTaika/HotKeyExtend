@@ -14,12 +14,18 @@ namespace HotkeyExtend
         //模拟按键按下
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
+
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessageW(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
         [DllImport("kernel32.dll")]
         public static extern IntPtr GetModuleHandle(string name);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern IntPtr GetForegroundWindow();
 
         private IntPtr handle;
         private IntPtr HWND_BROADCAST = (IntPtr)0xffff;
@@ -125,6 +131,15 @@ namespace HotkeyExtend
         {
             keybd_event(35, 0, 0, 0);
             keybd_event(35, 0, 2, 0);
+        }
+
+        public void transparencyIncrease()
+        {
+            IntPtr hwd = GetForegroundWindow();
+            if (hwd != null)
+            {
+
+            }
         }
     }
 }

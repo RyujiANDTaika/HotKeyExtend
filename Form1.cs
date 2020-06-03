@@ -216,6 +216,198 @@ namespace HotkeyExtend
             screenBlock_Click(bottomMiddle, null);
             screenBlock_Click(bottomRight, null);
             screenBlock_Click(topLeft, null);
+
+            List<string> searchText = settingsAdapter.settings.searchText;
+            foreach (bool b in settingsAdapter.settings.searchTextStatus)
+            {
+                int index = searchText_DataGridView.Rows.Add();
+                searchText_DataGridView.Rows[index].Cells[0].Value = b;
+                searchText_DataGridView.Rows[index].Cells[1].Value = searchText[index * 4];
+                searchText_DataGridView.Rows[index].Cells[2].Value = searchText[index * 4 + 1];
+                searchText_DataGridView.Rows[index].Cells[3].Value = searchText[index * 4 + 2];
+                searchText_DataGridView.Rows[index].Cells[4].Value = searchText[index * 4 + 3];
+            }
+        }
+
+        private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(mainTabControl.SelectedIndex == 0)
+                addEdit_Button.Enabled = deleteEdit_Button.Enabled = false;
+            else
+                addEdit_Button.Enabled = deleteEdit_Button.Enabled = true;
+        }
+
+        private void addEdit_Button_Click(object sender, EventArgs e)
+        {
+            if(mainTabControl.SelectedIndex == 1)
+            {
+                int index = searchText_DataGridView.Rows.Add();
+                searchText_DataGridView.Rows[index].Cells[0].Value = true;
+                searchText_DataGridView.Rows[index].Cells[1].Value = "<new>";
+                searchText_DataGridView.Rows[index].Cells[2].Value = "";
+                searchText_DataGridView.Rows[index].Cells[3].Value = "";
+                searchText_DataGridView.Rows[index].Cells[4].Value = "%s";
+                searchText_DataGridView.Rows[index].Selected = true;
+
+                List<bool> tempStatus = settingsAdapter.settings.searchTextStatus;
+                tempStatus.Add(true);
+                settingsAdapter.settings.searchTextStatus = tempStatus;
+                List<string> tempText = settingsAdapter.settings.searchText;
+                tempText.Add("<new>");
+                tempText.Add("");
+                tempText.Add("");
+                tempText.Add("%s");
+                settingsAdapter.settings.searchText = tempText;
+            }
+            if(mainTabControl.SelectedIndex == 2)
+            {
+
+            }
+        }
+
+        private void deleteEdit_Button_Click(object sender, EventArgs e)
+        {
+            if (mainTabControl.SelectedIndex == 1)
+            {
+                int index = searchText_DataGridView.SelectedRows[0].Index;
+                searchText_DataGridView.Rows.RemoveAt(index);
+
+                List<bool> tempStatus = settingsAdapter.settings.searchTextStatus;
+                tempStatus.RemoveAt(index);
+                settingsAdapter.settings.searchTextStatus = tempStatus;
+                List<string> tempText = settingsAdapter.settings.searchText;
+                tempText.RemoveAt(index*4);
+                tempText.RemoveAt(index*4);
+                tempText.RemoveAt(index*4);
+                tempText.RemoveAt(index*4);
+                settingsAdapter.settings.searchText = tempText;
+            }
+            if (mainTabControl.SelectedIndex == 2)
+            {
+
+            }
+
+        }
+
+        private void searchText_DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex > -1)
+            {
+                editNameTextBox.Enabled = editHotkeyButton.Enabled = editGroupButton.Enabled = editURLTextBox.Enabled = true;
+                editNameTextBox.Text = searchText_DataGridView.Rows[e.RowIndex].Cells[1].Value.ToString();
+                editHotkeyButton.Text = searchText_DataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
+                editGroupButton.Text = searchText_DataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
+                editURLTextBox.Text = searchText_DataGridView.Rows[e.RowIndex].Cells[4].Value.ToString();
+            }
+            else
+            {
+                editNameTextBox.Text = editHotkeyButton.Text = editGroupButton.Text = editURLTextBox.Text = null;
+                editNameTextBox.Enabled = editHotkeyButton.Enabled = editGroupButton.Enabled = editURLTextBox.Enabled = false;
+            }
+        }
+
+        private void editNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int index = searchText_DataGridView.SelectedRows[0].Index;
+            searchText_DataGridView.Rows[index].Cells[1].Value = editNameTextBox.Text;
+            List<string> tempText = settingsAdapter.settings.searchText;
+            tempText[index * 4] = editNameTextBox.Text;
+            settingsAdapter.settings.searchText = tempText;
+        }
+
+        private void editURLTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int index = searchText_DataGridView.SelectedRows[0].Index;
+            searchText_DataGridView.Rows[index].Cells[4].Value = editURLTextBox.Text;
+            List<string> tempText = settingsAdapter.settings.searchText;
+            tempText[index * 4 + 3] = editURLTextBox.Text;
+            settingsAdapter.settings.searchText = tempText;
+
+        }
+
+        private int hotkeyKeyDownNum;
+
+        private void editHotkeyButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            int index = searchText_DataGridView.SelectedRows[0].Index;
+            if (editHotkeyButton.Text == searchText_DataGridView.Rows[index].Cells[2].Value.ToString())
+                editHotkeyButton.Text = "";
+            if (hotkeyKeyDownNum == 2)
+            {
+                if (e.KeyCode != Keys.ControlKey && e.KeyCode != Keys.ShiftKey && e.KeyCode != Keys.Menu && e.KeyCode != Keys.LWin && e.KeyCode != Keys.RWin)
+                {
+                    editHotkeyButton.Text += e.KeyCode.ToString();
+                    searchText_DataGridView.Rows[index].Cells[2].Value = editHotkeyButton.Text;
+                    editHotkeyButton.KeyDown -= editHotkeyButton_KeyDown;
+                    editHotkeyButton_Click(editHotkeyButton, null);
+                }
+            }
+            else
+            {
+                if (e.Control)
+                {
+                    if (!editHotkeyButton.Text.Contains("ctrl_"))
+                    {
+                        hotkeyKeyDownNum++;
+                        editHotkeyButton.Text += "ctrl_";
+                    }
+                }
+                if (e.Alt)
+                {
+                    if (!editHotkeyButton.Text.Contains("alt_"))
+                    {
+                        hotkeyKeyDownNum++;
+                        editHotkeyButton.Text += "alt_";
+                    }
+                }
+                if (e.Shift)
+                {
+                    if (!editHotkeyButton.Text.Contains("shift_"))
+                    {
+                        hotkeyKeyDownNum++;
+                        editHotkeyButton.Text += "shift_";
+                    }
+                }
+                if (e.KeyCode == Keys.LWin || e.KeyCode == Keys.RWin)
+                {
+                    if (!editHotkeyButton.Text.Contains("win_"))
+                    {
+                        hotkeyKeyDownNum++;
+                        editHotkeyButton.Text += "win_";
+                    }
+                }
+                if (e.KeyCode != Keys.ControlKey && e.KeyCode != Keys.ShiftKey && e.KeyCode != Keys.Menu && e.KeyCode != Keys.LWin && e.KeyCode != Keys.RWin)
+                {
+                    editHotkeyButton.Text += e.KeyCode.ToString();
+                    searchText_DataGridView.Rows[index].Cells[2].Value = editHotkeyButton.Text;
+                    editHotkeyButton.KeyDown -= editHotkeyButton_KeyDown;
+                    editHotkeyButton_Click(editHotkeyButton, null);
+                }
+            }
+        }
+
+        private bool editHotkeyButtonStatus = false;
+
+        private void editHotkeyButton_Click(object sender, EventArgs e)
+        {
+            if (editHotkeyButtonStatus)
+            {
+                editHotkeyButtonStatus = false;
+                editHotkeyButton.KeyDown -= editHotkeyButton_KeyDown;
+                editHotkeyButton.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            }
+            else
+            {
+                editHotkeyButtonStatus = true;
+                editHotkeyButton.KeyDown += editHotkeyButton_KeyDown;
+                editHotkeyButton.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+                hotkeyKeyDownNum = 0;
+            }
+        }
+
+        private void editHotkeyButton_KeyUp(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

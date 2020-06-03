@@ -42,27 +42,50 @@ namespace HotkeyExtend
                 }
                 set
                 {
-                    ArrayList arrayList = new ArrayList();
-                    foreach(int i in value)
-                    {
-                        arrayList.Add(i);
-                    }
+                    ArrayList arrayList = new ArrayList(value);
                     Properties.Settings.Default.screenBlockStatus = arrayList;
+                    Properties.Settings.Default.Save();
+                    service.updateService();
+                }
+            }
+
+            public List<string> searchText
+            {
+                get
+                {
+                    if (Properties.Settings.Default.searchText == null)
+                        return null;
+                    return new List<string>((string[])Properties.Settings.Default.searchText.ToArray(typeof(string)));
+                }
+                set
+                {
+                    ArrayList arrayList = new ArrayList(value);
+                    Properties.Settings.Default.searchText = arrayList;
+                    Properties.Settings.Default.Save();
+                    service.updateService();
+                }
+            }
+
+            public List<bool> searchTextStatus
+            {
+                get
+                {
+                    if (Properties.Settings.Default.searchTextStatus == null)
+                        return null;
+                    return new List<bool>((bool[])Properties.Settings.Default.searchTextStatus.ToArray(typeof(bool)));
+                }
+                set
+                {
+                    ArrayList arrayList = new ArrayList(value);
+                    Properties.Settings.Default.searchTextStatus = arrayList;
                     Properties.Settings.Default.Save();
                     service.updateService();
                 }
             }
         }
 
-        private Settings settingsInstance = new Settings();
-
-        public Settings settings
-        {
-            get
-            {
-                return settingsInstance;
-            }
-        }
+        public Settings settings { get; } = new Settings();
+        
 
         public void initialSettings()
         {

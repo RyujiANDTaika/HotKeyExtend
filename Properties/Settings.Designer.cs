@@ -12,7 +12,7 @@ namespace HotkeyExtend.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -43,6 +43,28 @@ namespace HotkeyExtend.Properties {
             }
             set {
                 this["screenBlockStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList searchText {
+            get {
+                return ((global::System.Collections.ArrayList)(this["searchText"]));
+            }
+            set {
+                this["searchText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList searchTextStatus {
+            get {
+                return ((global::System.Collections.ArrayList)(this["searchTextStatus"]));
+            }
+            set {
+                this["searchTextStatus"] = value;
             }
         }
     }

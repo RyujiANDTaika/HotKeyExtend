@@ -8,5 +8,11 @@
     <Setting Name="screenBlockStatus" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="searchText" Type="System.Collections.ArrayList" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="searchTextStatus" Type="System.Collections.ArrayList" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 
 namespace HotkeyExtend
 {
@@ -26,9 +28,14 @@ namespace HotkeyExtend
             public int time;            //时间戳
             public int dwExtraInfo;
         }
+
+        private delegate void msgManagerEventHandler(Int32 wParam, KBDLLHOOKSTRUCT msg);
+        private event msgManagerEventHandler msgManager;
+
         public void keyboardMsgReceiver(Int32 wParam, IntPtr lParam)
         {
             KBDLLHOOKSTRUCT msg = (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(KBDLLHOOKSTRUCT));
+            msgManager?.Invoke(wParam, msg);
         }
 
         public void updateService()

@@ -33,6 +33,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.ScreenBorder = new System.Windows.Forms.TabPage();
             this.selectedText = new System.Windows.Forms.Label();
@@ -72,7 +75,7 @@
             this.groupColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.URLColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label5 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.phraseReplace = new System.Windows.Forms.TabPage();
             this.HotkeyExtendIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.show_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,11 +84,20 @@
             this.switchButton = new System.Windows.Forms.Button();
             this.addEdit_Button = new System.Windows.Forms.Button();
             this.deleteEdit_Button = new System.Windows.Forms.Button();
+            this.replaceText_DataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label6 = new System.Windows.Forms.Label();
+            this.editInputTextBox = new System.Windows.Forms.TextBox();
+            this.editOutputTextBox = new System.Windows.Forms.TextBox();
             this.mainTabControl.SuspendLayout();
             this.ScreenBorder.SuspendLayout();
             this.copySearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchText_DataGridView)).BeginInit();
+            this.phraseReplace.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.replaceText_DataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -95,7 +107,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mainTabControl.Controls.Add(this.ScreenBorder);
             this.mainTabControl.Controls.Add(this.copySearch);
-            this.mainTabControl.Controls.Add(this.tabPage3);
+            this.mainTabControl.Controls.Add(this.phraseReplace);
             this.mainTabControl.Location = new System.Drawing.Point(9, 50);
             this.mainTabControl.Margin = new System.Windows.Forms.Padding(0);
             this.mainTabControl.Multiline = true;
@@ -522,6 +534,8 @@
             this.editGroupButton.Size = new System.Drawing.Size(218, 26);
             this.editGroupButton.TabIndex = 6;
             this.editGroupButton.UseVisualStyleBackColor = false;
+            this.editGroupButton.Click += new System.EventHandler(this.editGroupButton_Click);
+            this.editGroupButton.Leave += new System.EventHandler(this.editGroupButton_Leave);
             // 
             // editHotkeyButton
             // 
@@ -539,7 +553,7 @@
             this.editHotkeyButton.TabIndex = 4;
             this.editHotkeyButton.UseVisualStyleBackColor = false;
             this.editHotkeyButton.Click += new System.EventHandler(this.editHotkeyButton_Click);
-            this.editHotkeyButton.KeyUp += new System.Windows.Forms.KeyEventHandler(this.editHotkeyButton_KeyUp);
+            this.editHotkeyButton.Leave += new System.EventHandler(this.editHotkeyButton_Leave);
             // 
             // editURLTextBox
             // 
@@ -654,15 +668,19 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "按两下 Ctrl+C 复制文本，再按下自定义按键触发运行 （%s代表剪贴板内容）";
             // 
-            // tabPage3
+            // phraseReplace
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(958, 376);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "短语替换";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.phraseReplace.Controls.Add(this.editOutputTextBox);
+            this.phraseReplace.Controls.Add(this.editInputTextBox);
+            this.phraseReplace.Controls.Add(this.label6);
+            this.phraseReplace.Controls.Add(this.replaceText_DataGridView);
+            this.phraseReplace.Location = new System.Drawing.Point(4, 22);
+            this.phraseReplace.Name = "phraseReplace";
+            this.phraseReplace.Padding = new System.Windows.Forms.Padding(3);
+            this.phraseReplace.Size = new System.Drawing.Size(958, 376);
+            this.phraseReplace.TabIndex = 2;
+            this.phraseReplace.Text = "短语替换";
+            this.phraseReplace.UseVisualStyleBackColor = true;
             // 
             // HotkeyExtendIcon
             // 
@@ -755,6 +773,102 @@
             this.deleteEdit_Button.UseVisualStyleBackColor = false;
             this.deleteEdit_Button.Click += new System.EventHandler(this.deleteEdit_Button_Click);
             // 
+            // replaceText_DataGridView
+            // 
+            this.replaceText_DataGridView.AllowUserToAddRows = false;
+            this.replaceText_DataGridView.AllowUserToDeleteRows = false;
+            this.replaceText_DataGridView.AllowUserToResizeRows = false;
+            this.replaceText_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.replaceText_DataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.replaceText_DataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.replaceText_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.replaceText_DataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 12F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.replaceText_DataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            this.replaceText_DataGridView.Location = new System.Drawing.Point(10, 32);
+            this.replaceText_DataGridView.MultiSelect = false;
+            this.replaceText_DataGridView.Name = "replaceText_DataGridView";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 10F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.replaceText_DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.replaceText_DataGridView.RowHeadersVisible = false;
+            this.replaceText_DataGridView.RowHeadersWidth = 15;
+            this.replaceText_DataGridView.RowTemplate.Height = 23;
+            this.replaceText_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.replaceText_DataGridView.Size = new System.Drawing.Size(942, 286);
+            this.replaceText_DataGridView.TabIndex = 4;
+            this.replaceText_DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.replaceText_DataGridView_CellClick);
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.FillWeight = 25F;
+            this.dataGridViewCheckBoxColumn1.HeaderText = "启用";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "键入";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 200F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "替换为";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 14F);
+            this.label6.Location = new System.Drawing.Point(6, 10);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(484, 19);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "将输入的字符串替换为常用于，例如你的地址，邮箱等。";
+            // 
+            // editInputTextBox
+            // 
+            this.editInputTextBox.Enabled = false;
+            this.editInputTextBox.Font = new System.Drawing.Font("宋体", 14F);
+            this.editInputTextBox.Location = new System.Drawing.Point(10, 330);
+            this.editInputTextBox.Name = "editInputTextBox";
+            this.editInputTextBox.Size = new System.Drawing.Size(261, 29);
+            this.editInputTextBox.TabIndex = 6;
+            this.editInputTextBox.TextChanged += new System.EventHandler(this.editInputTextBox_TextChanged);
+            // 
+            // editOutputTextBox
+            // 
+            this.editOutputTextBox.Enabled = false;
+            this.editOutputTextBox.Font = new System.Drawing.Font("宋体", 14F);
+            this.editOutputTextBox.Location = new System.Drawing.Point(277, 330);
+            this.editOutputTextBox.Name = "editOutputTextBox";
+            this.editOutputTextBox.Size = new System.Drawing.Size(675, 29);
+            this.editOutputTextBox.TabIndex = 7;
+            this.editOutputTextBox.TextChanged += new System.EventHandler(this.editOutputTextBox_TextChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -768,19 +882,24 @@
             this.Controls.Add(this.mainTabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HotkeyExtend";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormCLosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.mainTabControl.ResumeLayout(false);
             this.ScreenBorder.ResumeLayout(false);
             this.ScreenBorder.PerformLayout();
             this.copySearch.ResumeLayout(false);
             this.copySearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchText_DataGridView)).EndInit();
+            this.phraseReplace.ResumeLayout(false);
+            this.phraseReplace.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.replaceText_DataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -790,7 +909,7 @@
         private System.Windows.Forms.TabControl mainTabControl;
         private System.Windows.Forms.TabPage ScreenBorder;
         private System.Windows.Forms.TabPage copySearch;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage phraseReplace;
         private System.Windows.Forms.Button topLeft;
         private System.Windows.Forms.Button bottomLeft;
         private System.Windows.Forms.Button middleLeft;
@@ -835,6 +954,13 @@
         private System.Windows.Forms.TextBox editNameTextBox;
         private System.Windows.Forms.Button editGroupButton;
         private System.Windows.Forms.Button editHotkeyButton;
+        private System.Windows.Forms.TextBox editOutputTextBox;
+        private System.Windows.Forms.TextBox editInputTextBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView replaceText_DataGridView;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }
 

@@ -67,5 +67,27 @@ namespace HotkeyExtend.Properties {
                 this["searchTextStatus"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList replaceText {
+            get {
+                return ((global::System.Collections.ArrayList)(this["replaceText"]));
+            }
+            set {
+                this["replaceText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.ArrayList replaceTextStatus {
+            get {
+                return ((global::System.Collections.ArrayList)(this["replaceTextStatus"]));
+            }
+            set {
+                this["replaceTextStatus"] = value;
+            }
+        }
     }
 }

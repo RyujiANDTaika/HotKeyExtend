@@ -82,6 +82,40 @@ namespace HotkeyExtend
                     service.updateService();
                 }
             }
+
+            public List<string> replaceText
+            {
+                get
+                {
+                    if (Properties.Settings.Default.replaceText == null)
+                        return null;
+                    return new List<string>((string[])Properties.Settings.Default.replaceText.ToArray(typeof(string)));
+                }
+                set
+                {
+                    ArrayList arrayList = new ArrayList(value);
+                    Properties.Settings.Default.replaceText = arrayList;
+                    Properties.Settings.Default.Save();
+                    service.updateService();
+                }
+            }
+
+            public List<bool> replaceTextStatus
+            {
+                get
+                {
+                    if (Properties.Settings.Default.replaceTextStatus == null)
+                        return null;
+                    return new List<bool>((bool[])Properties.Settings.Default.replaceTextStatus.ToArray(typeof(bool)));
+                }
+                set
+                {
+                    ArrayList arrayList = new ArrayList(value);
+                    Properties.Settings.Default.replaceTextStatus = arrayList;
+                    Properties.Settings.Default.Save();
+                    service.updateService();
+                }
+            }
         }
 
         public Settings settings { get; } = new Settings();
@@ -90,9 +124,9 @@ namespace HotkeyExtend
         public void initialSettings()
         {
             Properties.Settings.Default.screenBlockStatus = new ArrayList {
-                0,0,0,0,
-                0,0,0,0,
-                0,0,0,0,
+                1,1,0,0,
+                1,2,0,0,
+                1,3,0,0,
                 0,0,0,0,
                 0,0,0,0,
                 0,0,0,0,

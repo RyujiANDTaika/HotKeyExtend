@@ -130,9 +130,9 @@ namespace HotkeyExtend
                 int index = blockList.IndexOf(block);
                 if(statusArray[index*4] == 1)
                 {
-                    addWheelEvent(block, statusArray[1]);
-                    addWheelDownEvent(block, statusArray[2]);
-                    addStayEvent(block, statusArray[3]);
+                    addWheelEvent(block, statusArray[index * 4 + 1]);
+                    addWheelDownEvent(block, statusArray[index * 4 + 2]);
+                    addStayEvent(block, statusArray[index * 4 + 3]);
                 }
             }
             foreach(msgManagerEventHandler blockHandle in blockFuncList)

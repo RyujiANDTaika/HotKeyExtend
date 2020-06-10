@@ -272,9 +272,6 @@ namespace HotkeyExtend
                 replaceText_DataGridView.Rows[index].Cells[1].Value = replaceText[index * 2];
                 replaceText_DataGridView.Rows[index].Cells[2].Value = replaceText[index * 2 + 1];
             }
-
-            searchText_DataGridView.CellValueChanged += this.searchText_DataGridView_CellValueChanged;
-            replaceText_DataGridView.CellValueChanged += this.replaceText_DataGridView_CellValueChanged;
         }
 
         private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -591,23 +588,23 @@ namespace HotkeyExtend
             settingsAdapter.settings.replaceText = tempText;
         }
 
-        private void searchText_DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void replaceText_DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
-            {
-                List<bool> tempStatus = settingsAdapter.settings.searchTextStatus;
-                tempStatus[e.RowIndex] = Convert.ToBoolean(searchText_DataGridView.Rows[e.RowIndex].Cells[0].EditedFormattedValue);
-                settingsAdapter.settings.searchTextStatus = tempStatus;
-            }
-        }
-
-        private void replaceText_DataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0 && e.RowIndex != -1)
             {
                 List<bool> tempStatus = settingsAdapter.settings.replaceTextStatus;
                 tempStatus[e.RowIndex] = Convert.ToBoolean(replaceText_DataGridView.Rows[e.RowIndex].Cells[0].EditedFormattedValue);
                 settingsAdapter.settings.replaceTextStatus = tempStatus;
+            }
+        }
+
+        private void searchText_DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex != -1)
+            {
+                List<bool> tempStatus = settingsAdapter.settings.searchTextStatus;
+                tempStatus[e.RowIndex] = Convert.ToBoolean(searchText_DataGridView.Rows[e.RowIndex].Cells[0].EditedFormattedValue);
+                settingsAdapter.settings.searchTextStatus = tempStatus;
             }
         }
     }

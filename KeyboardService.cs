@@ -62,8 +62,8 @@ namespace HotkeyExtend
             {
                 if (replaceTextStatus[i])
                 {
-                    TestClass testClass = new TestClass(replaceText[i * 2], replaceText[i * 2 + 1]);
-                    msgManager += testClass.testFunc;
+                    TestReplaceModule testReplaceModule = new TestReplaceModule(replaceText[i * 2], replaceText[i * 2 + 1]);
+                    msgManager += testReplaceModule.judgeMsg;
                 }
             }
         }
@@ -71,61 +71,89 @@ namespace HotkeyExtend
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         static extern short VkKeyScanEx(char ch, IntPtr dwhkl);
 
-        public class TestClass {
+        public class TestReplaceModule {
             public string inputString;
             public string outputString;
-            public TestClass(string inputString,string outputString)
+            public TestReplaceModule(string inputString,string outputString)
             {
                 this.inputString = inputString;
                 this.outputString = outputString;
-            }
 
-            public struct KeyMsg
-            {
-                public int KeyStatus;
-                public int KeyCode;
-                public KeyMsg(int KeyStatus,int KeyCode)
-                {
-                    this.KeyStatus = KeyStatus;
-                    this.KeyCode = KeyCode;
-                }
+                generateKeyList();
             }
 
             private int keyNum = 0;
-            private List<KeyMsg> keyList;
+            private bool shiftKeyStatus;
+            private List<short> keyList;
 
-            public void testFunc(Int32 wParam, KBDLLHOOKSTRUCT msg)
+            public void judgeMsg(Int32 wParam, KBDLLHOOKSTRUCT msg)
             {
-                generateKeyList();
-                if(keyNum < keyList.Count())
+                if (msg.vkCode == 160 && wParam == WM_KEYDOWN)
                 {
-                    if(keyList[keyNum].KeyStatus == wParam && keyList[keyNum].KeyCode == msg.vkCode)
+                    shiftKeyStatus = true;
+                    return;
+                }
+                if(msg.vkCode == 160 && wParam == WM_KEYUP)
+                {
+                    shiftKeyStatus = false;
+                    return;
+                }
+
+                if (keyNum < keyList.Count() && wParam == WM_KEYDOWN)
+                {
+                    //当按键的高位为0时
+                    if (keyList[keyNum] < 256)
                     {
-                        keyNum++;
+                        if (keyList[keyNum] == msg.vkCode)
+                        {
+                            keyNum++;
+                        }
+                        else
+                        {
+                            keyNum = 0;
+                        }
                     }
                     else
                     {
-                        //如果匹配中断则置零
-                        keyNum = 0;
+                        //当按键的高位不为0则需要按下shift
+                        if (shiftKeyStatus)
+                        {
+                            //用低8位进行判断
+                            if (((byte)keyList[keyNum] & 0xff) == msg.vkCode)
+                            {
+                                keyNum++;
+                            }
+                            else
+                            {
+                                keyNum = 0;
+                            }
+                        }
+                        else
+                        {
+                            keyNum = 0;
+                        }
                     }
                 }
-                else
-                {
-                    //匹配成功后执行的操作
 
+                //当最后一个按键弹起时触发替换操作
+                if(keyNum == keyList.Count() && wParam == WM_KEYUP)
+                {
+                    keyNum = 0;
+                    Console.WriteLine("success");
+                    SendKeys.SendWait("{BACKSPACE " + inputString.Length + "}");
+                    SendKeys.Send(this.outputString);
+                    return;
                 }
-                
-                Console.WriteLine(VkKeyScanEx(this.inputString[0],(IntPtr)0) == msg.vkCode);
 
             }
 
             public void generateKeyList()
             {
-                keyList = new List<KeyMsg>();
+                keyList = new List<short>();
                 foreach(char c in this.inputString)
                 {
-                    keyList.Add(new KeyMsg(WM_KEYDOWN, VkKeyScanEx(c, (IntPtr)0)));
-                    keyList.Add(new KeyMsg(WM_KEYUP, VkKeyScanEx(c, (IntPtr)0)));
+                    short keyCode = VkKeyScanEx(c, (IntPtr)0);
+                    keyList.Add(keyCode);
                 }
             }
         } 

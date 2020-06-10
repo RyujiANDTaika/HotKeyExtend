@@ -32,10 +32,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.ScreenBorder = new System.Windows.Forms.TabPage();
             this.selectedText = new System.Windows.Forms.Label();
@@ -76,6 +76,13 @@
             this.URLColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label5 = new System.Windows.Forms.Label();
             this.phraseReplace = new System.Windows.Forms.TabPage();
+            this.editOutputTextBox = new System.Windows.Forms.TextBox();
+            this.editInputTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.replaceText_DataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HotkeyExtendIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.show_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,20 +91,13 @@
             this.switchButton = new System.Windows.Forms.Button();
             this.addEdit_Button = new System.Windows.Forms.Button();
             this.deleteEdit_Button = new System.Windows.Forms.Button();
-            this.replaceText_DataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label6 = new System.Windows.Forms.Label();
-            this.editInputTextBox = new System.Windows.Forms.TextBox();
-            this.editOutputTextBox = new System.Windows.Forms.TextBox();
             this.mainTabControl.SuspendLayout();
             this.ScreenBorder.SuspendLayout();
             this.copySearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchText_DataGridView)).BeginInit();
             this.phraseReplace.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.replaceText_DataGridView)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -623,6 +623,7 @@
             this.searchText_DataGridView.Size = new System.Drawing.Size(942, 268);
             this.searchText_DataGridView.TabIndex = 1;
             this.searchText_DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.searchText_DataGridView_CellClick);
+            this.searchText_DataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.searchText_DataGridView_CellContentClick);
             // 
             // usageColumn
             // 
@@ -681,6 +682,103 @@
             this.phraseReplace.TabIndex = 2;
             this.phraseReplace.Text = "短语替换";
             this.phraseReplace.UseVisualStyleBackColor = true;
+            // 
+            // editOutputTextBox
+            // 
+            this.editOutputTextBox.Enabled = false;
+            this.editOutputTextBox.Font = new System.Drawing.Font("宋体", 14F);
+            this.editOutputTextBox.Location = new System.Drawing.Point(277, 330);
+            this.editOutputTextBox.Name = "editOutputTextBox";
+            this.editOutputTextBox.Size = new System.Drawing.Size(675, 29);
+            this.editOutputTextBox.TabIndex = 7;
+            this.editOutputTextBox.TextChanged += new System.EventHandler(this.editOutputTextBox_TextChanged);
+            // 
+            // editInputTextBox
+            // 
+            this.editInputTextBox.Enabled = false;
+            this.editInputTextBox.Font = new System.Drawing.Font("宋体", 14F);
+            this.editInputTextBox.Location = new System.Drawing.Point(10, 330);
+            this.editInputTextBox.Name = "editInputTextBox";
+            this.editInputTextBox.Size = new System.Drawing.Size(261, 29);
+            this.editInputTextBox.TabIndex = 6;
+            this.editInputTextBox.TextChanged += new System.EventHandler(this.editInputTextBox_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 14F);
+            this.label6.Location = new System.Drawing.Point(6, 10);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(484, 19);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "将输入的字符串替换为常用于，例如你的地址，邮箱等。";
+            // 
+            // replaceText_DataGridView
+            // 
+            this.replaceText_DataGridView.AllowUserToAddRows = false;
+            this.replaceText_DataGridView.AllowUserToDeleteRows = false;
+            this.replaceText_DataGridView.AllowUserToResizeRows = false;
+            this.replaceText_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.replaceText_DataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.replaceText_DataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.replaceText_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.replaceText_DataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewCheckBoxColumn1,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 12F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.replaceText_DataGridView.DefaultCellStyle = dataGridViewCellStyle5;
+            this.replaceText_DataGridView.Location = new System.Drawing.Point(10, 32);
+            this.replaceText_DataGridView.MultiSelect = false;
+            this.replaceText_DataGridView.Name = "replaceText_DataGridView";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 10F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.replaceText_DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.replaceText_DataGridView.RowHeadersVisible = false;
+            this.replaceText_DataGridView.RowHeadersWidth = 15;
+            this.replaceText_DataGridView.RowTemplate.Height = 23;
+            this.replaceText_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.replaceText_DataGridView.Size = new System.Drawing.Size(942, 286);
+            this.replaceText_DataGridView.TabIndex = 4;
+            this.replaceText_DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.replaceText_DataGridView_CellClick);
+            this.replaceText_DataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.replaceText_DataGridView_CellContentClick);
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            this.dataGridViewCheckBoxColumn1.FillWeight = 25F;
+            this.dataGridViewCheckBoxColumn1.HeaderText = "启用";
+            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "键入";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 200F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "替换为";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
             // HotkeyExtendIcon
             // 
@@ -773,102 +871,6 @@
             this.deleteEdit_Button.UseVisualStyleBackColor = false;
             this.deleteEdit_Button.Click += new System.EventHandler(this.deleteEdit_Button_Click);
             // 
-            // replaceText_DataGridView
-            // 
-            this.replaceText_DataGridView.AllowUserToAddRows = false;
-            this.replaceText_DataGridView.AllowUserToDeleteRows = false;
-            this.replaceText_DataGridView.AllowUserToResizeRows = false;
-            this.replaceText_DataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.replaceText_DataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 12F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.replaceText_DataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.replaceText_DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.replaceText_DataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewCheckBoxColumn1,
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 12F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.replaceText_DataGridView.DefaultCellStyle = dataGridViewCellStyle5;
-            this.replaceText_DataGridView.Location = new System.Drawing.Point(10, 32);
-            this.replaceText_DataGridView.MultiSelect = false;
-            this.replaceText_DataGridView.Name = "replaceText_DataGridView";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 10F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.replaceText_DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.replaceText_DataGridView.RowHeadersVisible = false;
-            this.replaceText_DataGridView.RowHeadersWidth = 15;
-            this.replaceText_DataGridView.RowTemplate.Height = 23;
-            this.replaceText_DataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.replaceText_DataGridView.Size = new System.Drawing.Size(942, 286);
-            this.replaceText_DataGridView.TabIndex = 4;
-            this.replaceText_DataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.replaceText_DataGridView_CellClick);
-            // 
-            // dataGridViewCheckBoxColumn1
-            // 
-            this.dataGridViewCheckBoxColumn1.FillWeight = 25F;
-            this.dataGridViewCheckBoxColumn1.HeaderText = "启用";
-            this.dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "键入";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 200F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "替换为";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("宋体", 14F);
-            this.label6.Location = new System.Drawing.Point(6, 10);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(484, 19);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "将输入的字符串替换为常用于，例如你的地址，邮箱等。";
-            // 
-            // editInputTextBox
-            // 
-            this.editInputTextBox.Enabled = false;
-            this.editInputTextBox.Font = new System.Drawing.Font("宋体", 14F);
-            this.editInputTextBox.Location = new System.Drawing.Point(10, 330);
-            this.editInputTextBox.Name = "editInputTextBox";
-            this.editInputTextBox.Size = new System.Drawing.Size(261, 29);
-            this.editInputTextBox.TabIndex = 6;
-            this.editInputTextBox.TextChanged += new System.EventHandler(this.editInputTextBox_TextChanged);
-            // 
-            // editOutputTextBox
-            // 
-            this.editOutputTextBox.Enabled = false;
-            this.editOutputTextBox.Font = new System.Drawing.Font("宋体", 14F);
-            this.editOutputTextBox.Location = new System.Drawing.Point(277, 330);
-            this.editOutputTextBox.Name = "editOutputTextBox";
-            this.editOutputTextBox.Size = new System.Drawing.Size(675, 29);
-            this.editOutputTextBox.TabIndex = 7;
-            this.editOutputTextBox.TextChanged += new System.EventHandler(this.editOutputTextBox_TextChanged);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -898,8 +900,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.searchText_DataGridView)).EndInit();
             this.phraseReplace.ResumeLayout(false);
             this.phraseReplace.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.replaceText_DataGridView)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

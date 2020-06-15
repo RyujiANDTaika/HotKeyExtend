@@ -76,10 +76,19 @@ namespace HotkeyExtend
                 }
                 set
                 {
-                    ArrayList arrayList = new ArrayList(value);
-                    Properties.Settings.Default.searchTextStatus = arrayList;
-                    Properties.Settings.Default.Save();
-                    service.updateService();
+                    if(value.Count() == searchTextStatus.Count())
+                    {
+                        ArrayList arrayList = new ArrayList(value);
+                        Properties.Settings.Default.searchTextStatus = arrayList;
+                        Properties.Settings.Default.Save();
+                        service.updateService();
+                    }
+                    else
+                    {
+                        ArrayList arrayList = new ArrayList(value);
+                        Properties.Settings.Default.searchTextStatus = arrayList;
+                        Properties.Settings.Default.Save();
+                    }
                 }
             }
 
@@ -110,10 +119,19 @@ namespace HotkeyExtend
                 }
                 set
                 {
-                    ArrayList arrayList = new ArrayList(value);
-                    Properties.Settings.Default.replaceTextStatus = arrayList;
-                    Properties.Settings.Default.Save();
-                    service.updateService();
+                    if(value.Count() == replaceTextStatus.Count())
+                    {
+                        ArrayList arrayList = new ArrayList(value);
+                        Properties.Settings.Default.replaceTextStatus = arrayList;
+                        Properties.Settings.Default.Save();
+                        service.updateService();
+                    }
+                    else
+                    {
+                        ArrayList arrayList = new ArrayList(value);
+                        Properties.Settings.Default.replaceTextStatus = arrayList;
+                        Properties.Settings.Default.Save();
+                    }
                 }
             }
         }
